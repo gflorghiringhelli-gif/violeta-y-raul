@@ -1,0 +1,989 @@
+:root {
+  --olive-bg: #838661;
+  --olive-dark: #5e6143;
+  --olive-light: #f7f8f4;
+  --paper-bg: #f9f8f4;
+  --text-dark: #2c2c2c;
+  --text-muted: #666666;
+  --gold-accent: #b8a9c9;
+  --lavanda-dark: #7d6b91;
+  --font-serif: 'Playfair Display', serif;
+  --font-garamond: 'Cormorant Garamond', serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+/* =========================================================
+   CARGA DE LUXURIOUS SCRIPT REGULAR
+   ========================================================= */
+
+@font-face {
+  font-family: 'Luxurious Script';
+  src: url('img/LuxuriousScript-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--paper-bg);
+  color: var(--text-dark);
+  font-family: var(--font-garamond);
+  text-align: center;
+  overflow-x: hidden !important;
+  width: 100vw;
+}
+
+/* =========================================================
+   PÉTALOS
+   ========================================================= */
+
+#petalsCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* =========================================================
+   PAPEL / FONDO
+   ========================================================= */
+
+.bloque-papel-textura {
+  background-color: var(--paper-bg);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  padding-bottom: 30px;
+}
+
+.bloque-verde {
+  background-color: var(--olive-bg);
+  color: #ffffff;
+  padding: 35px 0 45px 0;
+  box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.section-pad {
+  padding: 35px 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.oculto {
+  display: none;
+}
+
+/* =========================================================
+   PORTADA
+   ========================================================= */
+
+.hero-portada {
+  position: relative;
+  width: calc(100% - 30px);
+  max-width: 380px;
+  height: 510px;
+  margin: 25px auto 10px auto;
+  border-radius: 180px 180px 16px 16px;
+  padding: 6px;
+  background: linear-gradient(
+    135deg,
+    #b8a9c9 0%,
+    #e2dceb 50%,
+    #838661 100%
+  );
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+.portada-frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 174px 174px 12px 12px;
+  overflow: hidden;
+}
+
+.portada-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.92);
+}
+
+.portada-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.05) 0%,
+    rgba(0, 0, 0, 0.1) 45%,
+    rgba(30, 30, 25, 0.78) 82%,
+    rgba(15, 15, 12, 0.92) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px 32px 20px;
+  color: #ffffff;
+}
+
+/* =========================================================
+   LUXURIOUS SCRIPT - NOMBRES (SEPARADOS Y CORREGIDOS)
+   ========================================================= */
+
+.main-title-portada {
+  font-family: 'Luxurious Script', cursive !important;
+  font-size: 4.8rem;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
+
+/* Nombres dentro de la tarjeta de versículo / padres (Más pequeños y centrados) */
+.couple-names-block {
+  font-family: 'Luxurious Script', cursive !important;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--olive-bg);
+  line-height: 1.2;
+  margin: 10px auto 0 auto;
+  text-align: center;
+  display: block;
+  width: 100%;
+  text-shadow: none !important;
+}
+
+/* Nombres al final en la firma (Grandes) */
+.farewell-couple-dark {
+  font-family: 'Luxurious Script', cursive !important;
+  font-size: 4.5rem;
+  font-weight: 400;
+  color: var(--olive-bg);
+  line-height: 1.1;
+  margin-top: 5px;
+  text-align: center;
+  width: 100%;
+  text-shadow: none !important;
+}
+
+/* =========================================================
+   SUBTÍTULO PORTADA
+   ========================================================= */
+
+.title-sub-portada {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 6px;
+  color: #f0ecf4;
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-weight: 500;
+  border-top: 1px solid rgba(184, 169, 201, 0.6);
+  border-bottom: 1px solid rgba(184, 169, 201, 0.6);
+  padding: 4px 14px;
+}
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+.editorial-heading {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  font-weight: 400;
+  color: var(--text-dark);
+  text-transform: uppercase;
+}
+
+.editorial-heading-light {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.section-sub-label {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* =========================================================
+   SAVE THE DATE
+   ========================================================= */
+
+.scratch-circles-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.circle-scratch-card {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(184, 169, 201, 0.3);
+}
+
+.circle-reveal-content {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--gold-accent);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.circle-number {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--olive-bg);
+  line-height: 1;
+}
+
+.circle-label {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.circle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: 5;
+  touch-action: none;
+  cursor: pointer;
+}
+
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+
+.countdown-card {
+  background: #ffffff;
+  border: 1px solid #e2dfd4;
+  border-radius: 12px;
+  padding: 0 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(25px) scale(0.94);
+  margin-top: 0;
+  pointer-events: none;
+  transition:
+    max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s ease,
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.6s ease,
+    margin 0.6s ease;
+}
+
+.countdown-card.revealed-done {
+  max-height: 220px;
+  opacity: 1;
+  overflow: visible;
+  transform: translateY(0) scale(1);
+  padding: 20px 15px;
+  margin-top: 30px;
+  pointer-events: auto;
+}
+
+.countdown-title {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--olive-bg);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.countdown-boxes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.cd-box {
+  background: var(--olive-light);
+  border: 1px solid #dcd7e0;
+  border-radius: 8px;
+  width: 58px;
+  padding: 8px 0;
+}
+
+.cd-box span {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--olive-bg);
+  display: block;
+  line-height: 1;
+}
+
+.cd-box p {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.cd-sep {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--gold-accent);
+  font-weight: 600;
+}
+
+/* =========================================================
+   GALERÍA
+   ========================================================= */
+
+.gallery-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.gallery-slider {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 5px 20px 5px;
+  scrollbar-width: none;
+}
+
+.gallery-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-item {
+  flex: 0 0 80%;
+  height: 320px;
+  scroll-snap-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.slide-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-hint {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   UBICACIONES
+   ========================================================= */
+
+.location-section-spacious {
+  padding: 45px 20px;
+}
+
+.venue-card-watercolor {
+  background: var(--olive-bg);
+  border: 1px solid rgba(184, 169, 201, 0.5);
+  padding: 35px 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(131, 134, 97, 0.22);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.venue-custom-icon-wrap {
+  width: auto;
+  height: auto;
+  margin: 0 auto 12px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.venue-fa-icon {
+  font-size: 2.5rem;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+}
+
+.venue-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  letter-spacing: 2.5px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.venue-time {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.55rem;
+  color: #f0ecf4;
+  margin: 5px 0;
+}
+
+.venue-desc {
+  font-size: 1rem;
+  color: #f5f2f7;
+  line-height: 1.4;
+}
+
+.venue-card-watercolor .btn-outline-dark {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  letter-spacing: 1.5px;
+  padding: 10px 16px;
+  font-size: 0.6rem;
+}
+
+.venue-card-watercolor .btn-outline-dark:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================================================
+   DRESS CODE
+   ========================================================= */
+
+.dress-img-head {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vestimenta-png-icon {
+  width: 95px;
+  height: 95px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(184, 169, 201, 0.25));
+}
+
+.dress-code-subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  font-weight: 600;
+  color: var(--olive-bg);
+  margin-top: 10px;
+}
+
+.dress-card-elegant {
+  background: #ffffff;
+  border: 1px solid #e5e0ed;
+  border-radius: 12px;
+  padding: 22px 20px;
+  box-shadow: 0 6px 20px rgba(184, 169, 201, 0.12);
+  position: relative;
+}
+
+.dress-group-title {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 2.5px;
+  font-weight: 600;
+  color: var(--olive-bg);
+}
+
+.dress-desc {
+  font-size: 0.98rem;
+  color: #555;
+  margin-top: 5px;
+  line-height: 1.45;
+}
+
+.dress-divider {
+  width: 50px;
+  height: 1px;
+  background: #eee;
+  margin: 12px auto;
+}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.faq-item {
+  background: var(--olive-bg);
+  border: 1px solid rgba(184, 169, 201, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 18px rgba(131, 134, 97, 0.18);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.faq-arrow {
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+  color: var(--gold-accent);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  font-size: 0.95rem;
+  color: #f5f2f7;
+  line-height: 1.45;
+  transition:
+    max-height 0.4s ease,
+    padding 0.4s ease;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.faq-item.active-faq .faq-answer {
+  max-height: 160px;
+  padding: 14px 20px 18px 20px;
+}
+
+.faq-item.active-faq .faq-arrow {
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   REGALO
+   ========================================================= */
+
+.gift-envelope-card {
+  background: #ffffff;
+  padding: 25px 20px;
+  border: 1px solid #e5e0ed;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(184, 169, 201, 0.1);
+}
+
+.gift-top-large-img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 12px auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(184, 169, 201, 0.25));
+}
+
+.gift-buttons-grid {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   BIBLIA / FINAL
+   ========================================================= */
+
+.bible-quote-box-light {
+  border-top: 1px solid #e5e0ed;
+  border-bottom: 1px solid #e5e0ed;
+  padding: 30px 15px;
+  margin-top: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(184, 169, 201, 0.08);
+}
+
+.bible-text-dark {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #444444;
+  line-height: 1.5;
+}
+
+.bible-ref-dark {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  color: var(--lavanda-dark);
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.farewell-with-love-dark {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #666666;
+}
+
+/* =========================================================
+   PADRES / INVITACIÓN
+   ========================================================= */
+
+.invitarte-card {
+  background: #ffffff;
+  padding: 30px 20px;
+  border: 1px solid #e2ded4;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+}
+
+.blessing-text {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--olive-bg);
+  font-weight: 500;
+}
+
+.parents-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.parent-role {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--gold-accent);
+  font-weight: 600;
+}
+
+.parent-names {
+  font-family: var(--font-garamond);
+  font-size: 1.25rem;
+  color: #333;
+  line-height: 1.35;
+  margin-top: 3px;
+}
+
+.parents-divider {
+  width: 60px;
+  height: 1px;
+  background: #e2ded4;
+  margin: 5px auto;
+}
+
+.verse-couple-block {
+  margin-top: 15px;
+}
+
+.invite-quote {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.45;
+}
+
+.celebran-text {
+  font-family: var(--font-garamond);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #555;
+  margin-top: 15px;
+}
+
+.gift-text {
+  font-size: 0.98rem;
+  color: #555;
+  margin-top: 8px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* =========================================================
+   RSVP
+   ========================================================= */
+
+.rsvp-label-text {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: #f0ecf4;
+  margin-top: 15px;
+}
+
+.rsvp-date-highlight {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 3px;
+  margin-top: 4px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.btn {
+  display: inline-block;
+  padding: 13px 26px;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-editorial {
+  background-color: var(--olive-bg);
+  color: #ffffff;
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1px solid var(--text-dark);
+}
+
+.btn-white-pill {
+  background-color: #ffffff;
+  color: var(--olive-bg);
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.btn-sm {
+  padding: 8px 12px;
+  font-size: 0.58rem;
+}
+
+.btn-group-center {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   MODAL REGALO
+   ========================================================= */
+
+.gift-modal-box {
+  background: #fbf9f5;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e2ded4;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--lavanda-dark);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* =========================================================
+   SOBRE / VIDEO DE INICIO
+   ========================================================= */
+
+#contenedor-principal {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  background: #000;
+  cursor: pointer;
+}
+
+#videoSobre {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#capa-boton {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5001;
+  width: 90%;
+  max-width: 360px;
+}
+
+.boton-rosa-inicio {
+  background: rgba(131, 134, 97, 0.95);
+  color: #fff;
+  padding: 16px 28px;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* =========================================================
+   MÚSICA
+   ========================================================= */
+
+.music-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: var(--olive-bg);
+  color: #fff;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  z-index: 4999;
+  cursor: pointer;
+  display: none;
+}
+
+/* =========================================================
+   UTILIDADES
+   ========================================================= */
+
+.hidden-element {
+  display: none;
+}
+
+.mt-8 {
+  margin-top: 8px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mt-35 {
+  margin-top: 35px;
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.editorial-footer-dark {
+  padding: 30px 20px 10px 20px;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #888888;
+}
+
+.hidden-number { opacity: 0; transform: scale(0.5); transition: all 0.4s ease; }
+.circle-scratch-card.revealed .hidden-number { opacity: 1; transform: scale(1); }

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <title>Violeta & Raúl · Nuestra Boda</title>
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <div id="toast" class="toast">¡Información copiada! 📋✨</div>
+
+   <!-- CANVAS DE EXPLOSIÓN DE PÉTALOS -->
+   <canvas id="petalsCanvas"></canvas>
+
+   <!-- MÚSICA DE FONDO -->
+   <audio id="musicaInvitacion" preload="auto" loop>
+      <source src="img/musica.mp3" type="audio/mpeg">
+   </audio>
+
+   <div id="music-toggle" class="music-btn" onclick="toggleMusic()">
+       <i class="fa-solid fa-music"></i>
+   </div>
+   
+   <!-- INTRO VIDEO DEL SOBRE -->
+   <div id="contenedor-principal" onclick="activarInvitacion()">
+       <video id="videoSobre" playsinline muted preload="auto" poster="img/sobre.png">
+           <source src="img/1.mp4" type="video/mp4">
+       </video>
+       <div id="capa-boton">
+           <div class="boton-rosa-inicio" id="btn-toca-abrir">TOCÁ EL SOBRE PARA ABRIR </div>
+       </div>
+   </div>
+
+   <!-- INVITACIÓN WEB EDITORIAL -->
+   <div id="seccion-final" class="oculto">
+
+       <div class="bloque-papel-textura">
+           
+           <!-- PORTADA EN ARCO -->
+           <header class="hero-portada reveal">
+               <div class="portada-frame-inner">
+                   <img src="img/portada.png" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80'" alt="Violeta y Raúl" class="portada-img">
+                   <div class="portada-overlay">
+                       <h1 class="main-title-portada">Violeta & Raúl</h1>
+                       <p class="title-sub-portada">NUESTRA BODA</p>
+                   </div>
+               </div>
+           </header>
+
+           <!-- SAVE THE DATE -->
+           <section class="section-pad reveal text-center" id="std-section">
+               <h2 class="editorial-heading mt-5">SAVE THE DATE</h2>
+               <p class="section-sub-label">Tocá cada círculo para descubrir la fecha</p>
+
+               <div class="scratch-circles-wrapper mt-25" id="circlesWrapper">
+                   <div class="circle-scratch-card" data-valor="12" data-label="DÍA">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number hidden-number">12</span>
+                           <span class="circle-label">TOCÁ</span>
+                       </div>
+                   </div>
+
+                   <div class="circle-scratch-card" data-valor="12" data-label="MES">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number hidden-number">12</span>
+                           <span class="circle-label">TOCÁ</span>
+                       </div>
+                   </div>
+
+                   <div class="circle-scratch-card" data-valor="2026" data-label="AÑO">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number hidden-number">2026</span>
+                           <span class="circle-label">TOCÁ</span>
+                       </div>
+                   </div>
+               </div>
+
+               <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Violeta+y+Raul&dates=20261212T193000Z/20261213T050000Z&location=Vanite+Salon+de+Eventos,+Asuncion" target="_blank" class="btn btn-editorial mt-25">
+                   <i class="fa-regular fa-calendar-plus"></i> AGREGAR A GOOGLE CALENDAR
+               </a>
+
+               <div class="countdown-card" id="countdownCard">
+                   <p class="countdown-title">FALTAN POCOS DÍAS</p>
+                   <div class="countdown-boxes">
+                       <div class="cd-box"><span id="cd-days">00</span><p>Días</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-hours">00</span><p>Hs</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-mins">00</span><p>Min</p></div>
+                       <div class="cd-sep">:</div>
+                       <div class="cd-box"><span id="cd-secs">00</span><p>Seg</p></div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- BENDICIÓN Y PADRES -->
+           <section class="section-pad reveal">
+               <div class="invitarte-card parents-block-card">
+                   <p class="blessing-text">Con la bendición de Dios y el amor de nuestras familias,</p>
+                   
+                   <div class="parents-container mt-20">
+                       <div class="parent-col">
+                           <p class="parent-role">PADRES DEL NOVIO</p>
+                           <p class="parent-names">Mario Vidal Molinas Herrera<br>& Claudia María Minella Estigarribia</p>
+                       </div>
+                       <div class="parents-divider"></div>
+                       <div class="parent-col">
+                           <p class="parent-role">PADRES DE LA NOVIA</p>
+                           <p class="parent-names">Luis Alberto Cavallaro Rojas<br>& Ada Luz Alegre Leguizamón</p>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="invitarte-card verse-block-card mt-20">
+                   <div class="verse-couple-block">
+                       <p class="invite-quote">
+                           Hay momentos en la vida que son inolvidables, pero compartirlos con las personas que más queremos los hace inolvidables para siempre. Nos encantaría que nos acompañes a celebrar el comienzo de nuestra nueva historia.
+                       </p>
+                       <p class="celebran-text mt-20">Un sí para toda la vida</p>
+                       <h3 class="couple-names-block">Violeta & Raúl</h3>
+                   </div>
+               </div>
+           </section>
+
+           <!-- GALERÍA DESLIZANTE (9 FOTOS) -->
+           <section class="section-pad reveal">
+               <h2 class="editorial-heading mt-5">NOSOTROS</h2>
+               <p class="title-sub-cursive">Deslizá para ver las fotos</p>
+
+               <div class="gallery-slider-wrapper mt-20">
+                   <div class="gallery-slider" id="gallerySlider">
+                       <div class="slide-item"><img src="img/foto1.png" alt="Foto 1"></div>
+                       <div class="slide-item"><img src="img/foto2.png" alt="Foto 2"></div>
+                       <div class="slide-item"><img src="img/foto3.png" alt="Foto 3"></div>
+                       <div class="slide-item"><img src="img/foto4.png" alt="Foto 4"></div>
+                       <div class="slide-item"><img src="img/foto5.png" alt="Foto 5"></div>
+                       <div class="slide-item"><img src="img/foto6.png" alt="Foto 6"></div>
+                       <div class="slide-item"><img src="img/foto7.png" alt="Foto 7"></div>
+                       <div class="slide-item"><img src="img/foto8.png" alt="Foto 8"></div>
+                       <div class="slide-item"><img src="img/foto9.png" alt="Foto 9"></div>
+                   </div>
+                   <div class="slider-hint mt-10">
+                       <i class="fa-solid fa-arrow-left-long"></i> Deslizá <i class="fa-solid fa-arrow-right-long"></i>
+                   </div>
+               </div>
+           </section>
+
+           <!-- UBICACIONES -->
+           <section class="section-pad location-section-spacious reveal">
+               <h2 class="editorial-heading mt-5">UBICACIONES</h2>
+               <p class="title-sub-cursive">Dónde celebramos</p>
+
+               <div class="venue-card-watercolor mt-25">
+                   <div class="venue-custom-icon-wrap">
+                       <i class="fa-solid fa-church venue-fa-icon"></i>
+                   </div>
+                   <h3 class="venue-title">CEREMONIA RELIGIOSA</h3>
+                   <p class="venue-time">19:30 HS</p>
+                   <p class="venue-desc">Iglesia Vicaria Castrense</p>
+                   <div class="btn-group-center mt-15">
+                       <a href="https://maps.app.goo.gl/KjkV79kmgJpo9zwL9" target="_blank" class="btn btn-outline-dark"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                       <a href="https://waze.com/ul?ll=-25.2821,-57.5753&navigate=yes" target="_blank" class="btn btn-outline-dark"><i class="fa-brands fa-waze"></i> Waze</a>
+                   </div>
+               </div>
+
+               <div class="venue-card-watercolor mt-35">
+                   <div class="venue-custom-icon-wrap">
+                       <i class="fa-solid fa-champagne-glasses venue-fa-icon"></i>
+                   </div>
+                   <h3 class="venue-title">RECEPCIÓN</h3>
+                   <p class="venue-time">21:00 HS</p>
+                   <p class="venue-desc">Vanité Salón de Eventos</p>
+                   <div class="btn-group-center mt-15">
+                       <a href="https://maps.app.goo.gl/5PZorSV6VX8tCSJC9" target="_blank" class="btn btn-outline-dark"><i class="fa-solid fa-location-dot"></i> Maps</a>
+                       <a href="https://waze.com/ul?ll=-25.2912,-57.5614&navigate=yes" target="_blank" class="btn btn-outline-dark"><i class="fa-brands fa-waze"></i> Waze</a>
+                   </div>
+               </div>
+           </section>
+
+           <!-- DRESS CODE -->
+           <section class="section-pad reveal">
+               <div class="dress-img-head mt-10">
+                   <img src="img/vestido.png" onerror="this.style.display='none'" alt="Dress Code" class="vestimenta-png-icon">
+               </div>
+               <h2 class="editorial-heading mt-5">DRESS CODE</h2>
+               <p class="title-sub-cursive">Código de Vestimenta</p>
+               <p class="dress-code-subtitle mt-15">ELEGANTE</p>
+               
+               <div class="dress-card-elegant mt-20">
+                   <p class="dress-group-title">DAMAS</p>
+                   <p class="dress-desc">Vestido largo (Evitar tonos lila, lavanda, rojo, blanco, crema y beige).</p>
+                   
+                   <div class="dress-divider"></div>
+                   
+                   <p class="dress-group-title mt-15">CABALLEROS</p>
+                   <p class="dress-desc">Traje formal con corbata (Evitar traje azul y chaleco).</p>
+               </div>
+           </section>
+
+           <!-- FAQ INTERACTIVO -->
+           <section class="section-pad reveal text-center">
+               <h2 class="editorial-heading mt-5">FAQ INTERACTIVO</h2>
+               <p class="title-sub-cursive">Preguntas frecuentes</p>
+
+               <div class="faq-container mt-20">
+                   <div class="faq-item" onclick="toggleFaq(this)">
+                       <div class="faq-question">
+                           <span>¿Hay estacionamiento disponible?</span>
+                           <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                       </div>
+                       <div class="faq-answer">
+                           <p>Si desean estacionar en el Paseo Carmelitas, contarán con un precio preferencial por ser invitados de nuestra boda.</p>
+                       </div>
+                   </div>
+
+                   <div class="faq-item" onclick="toggleFaq(this)">
+                       <div class="faq-question">
+                           <span>¿A qué hora debo llegar?</span>
+                           <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                       </div>
+                       <div class="faq-answer">
+                           <p>Les pedimos llegar con puntualidad para compartir juntos cada momento de este día tan especial.</p>
+                       </div>
+                   </div>
+
+                   <div class="faq-item" onclick="toggleFaq(this)">
+                       <div class="faq-question">
+                           <span>¿Puedo asistir con niños?</span>
+                           <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                       </div>
+                       <div class="faq-answer">
+                           <p>Aunque adoramos a los más pequeños, nuestra celebración será solo para adultos.</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- SUGERENCIA DE REGALO -->
+           <section class="section-pad reveal">
+               <div class="gift-envelope-card">
+                   <img src="img/regalo.png" onerror="this.style.display='none'" alt="Regalo" class="gift-top-large-img mt-10">
+                   
+                   <h2 class="editorial-heading mt-5">SUGERENCIA DE REGALO</h2>
+                   <p class="title-sub-cursive">Un detalle con los novios</p>
+                   
+                   <p class="gift-text">
+                       Para su comodidad, ponemos a disposición nuestras listas de regalos:<br>
+                   </p>
+                   
+                   <div class="gift-buttons-grid mt-15">
+                       <a href="https://www.tupi.com.py/regalos_en_lista/9632/Boda-de-Violeta-Cavallaro-y-Raul-Molinas-el-12-12-2026" target="_blank" class="btn btn-outline-dark btn-sm">TUPI</a>
+                       <a href="https://www.olier.com.py/lista-bodas/ver/935" target="_blank" class="btn btn-outline-dark btn-sm">OLIER</a>
+                       <a href="https://www.pilar.com.py/lookbooks/lista-de-bodas-3" target="_blank" class="btn btn-outline-dark btn-sm">PILAR</a>
+                   </div>
+
+                   <p class="gift-text mt-20">
+                       Si prefieren ayudarnos a cumplir la luna de miel de nuestros sueños, les dejamos nuestros datos para transferencia:
+                   </p>
+
+                   <button type="button" class="btn btn-editorial mt-15" onclick="toggleGiftModal()">VER DATOS BANCARIOS</button>
+
+                   <div id="gift-modal" class="gift-modal-box hidden-element mt-15">
+                       <p><strong>Violeta Cavallaro</strong><br>Banco Itaú<br>Alias / Cta: 4.606.895</p>
+                       <button type="button" class="btn btn-sm btn-outline-dark mt-8" onclick="copyAliasVioleta()">
+                           <i class="fa-regular fa-copy"></i> Copiar Cuenta Violeta
+                       </button>
+
+                       <p class="mt-15"><strong>Raúl Molinas</strong><br>Banco Continental<br>Alias / Cta: 4.957.485</p>
+                       <button type="button" class="btn btn-sm btn-outline-dark mt-8" onclick="copyAliasRaul()">
+                           <i class="fa-regular fa-copy"></i> Copiar Cuenta Raúl
+                       </button>
+                   </div>
+               </div>
+           </section>
+       </div>
+
+       <!-- BLOQUE VERDE OLIVA PARA CONFIRMACIÓN DE ASISTENCIA -->
+       <div class="bloque-verde">
+           <section class="section-pad reveal text-center">
+               <h2 class="editorial-heading-light mt-5">CONFIRMACIÓN DE ASISTENCIA</h2>
+               <p class="title-sub-cursive-light">Esperamos contar contigo</p>
+               
+               <p class="rsvp-label-text mt-15">Fecha límite para confirmar asistencia:</p>
+               <p class="rsvp-date-highlight">28 / 11 / 2026</p>
+
+               <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeIu4HW67lp7eDVwzsXzfgQJbIsxSd_VNXaEV_RI8vgiGU_A/viewform?usp=dialog" class="btn btn-white-pill mt-25" target="_blank">
+                   <i class="fa-solid fa-envelope"></i> CONFIRMAR ASISTENCIA AQUI
+               </a>
+           </section>
+       </div>
+
+       <!-- PARTE FINAL EN BLANCO -->
+       <div class="bloque-papel-textura">
+           <section class="section-pad reveal text-center">
+               <div class="bible-quote-box-light">
+                   <p class="bible-text-dark mt-10">"Ahora, pues, permanecen estas tres virtudes: la fe, la esperanza y el amor. Pero la más excelente de todas es el amor."</p>
+                   <span class="bible-ref-dark">1 Corintios 13:13</span>
+               </div>
+
+               <div class="farewell-signature mt-35">
+                   <p class="farewell-with-love-dark">Con cariño,</p>
+                   <h2 class="farewell-couple-dark">Violeta & Raúl</h2>
+               </div>
+           </section>
+
+           <footer class="editorial-footer-dark">
+               <p>© GHISA DIGITAL · Tel: 0981 228 720</p>
+           </footer>
+       </div>
+
+   </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
